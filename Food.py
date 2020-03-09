@@ -9,4 +9,3 @@ class Food(pygame.sprite.Sprite):
         self.image.fill((255, 0, 0))
         self.rect = self.image.get_rect()
         self.rect.center = pos
-        # print(pos)

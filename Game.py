@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 import Snake as snk
 import Food as fd
 import Piece as pic
@@ -12,6 +13,7 @@ def drawGrid():
     #         pygame.draw.rect(screen, (0, 0, 255), [column, row, 19, 19])
 
 
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 pygame.init()
 
 size = width, height = 600, 600
@@ -41,6 +43,8 @@ snake_tail = []
 
 is_playing = True
 
+pygame.time.wait(1000)
+
 while is_playing:
 
     for event in pygame.event.get():
@@ -58,7 +62,8 @@ while is_playing:
                 direction = [-speed, 0]
                 axes = [True, False]
             if event.key == pygame.K_r:
-                pass
+                pygame.quit()
+                os.system('python Game.py')
             if event.key == pygame.K_q:
                 is_playing = False
 
@@ -75,7 +80,16 @@ while is_playing:
     if hit:
         food.kill()
         snake.pieces += 1
-        food = fd.Food([random.choice(pos), random.choice(pos)])
+        check_spawn = True
+        spawn = []
+        while check_spawn:
+            spawn = [random.choice(pos), random.choice(pos)]
+            check_spawn = False
+            for i in snake_tail:
+                p_pos = i.getPosition()
+                if spawn[0] == p_pos[0] and spawn[1] == p_pos[1]:
+                    check_spawn = True
+        food = fd.Food(spawn)
         food_group.add(food)
 
     hit = pygame.sprite.spritecollide(snake, tail_group, True)
@@ -83,8 +97,7 @@ while is_playing:
     if hit:
         is_playing = False
 
-    snake_tail.append(
-        pic.Piece([snake.rect.x + 10, snake.rect.y + 10], snake.pieces))
+    snake_tail.append(pic.Piece([snake.rect.x + 10, snake.rect.y + 10], snake.pieces))
 
     screen.fill(black)
     drawGrid()

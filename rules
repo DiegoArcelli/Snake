@@ -1,0 +1,7 @@
+How to play:
+- You can move the snake in the map by using the up, down, right and left arrows
+- If the snake hits the red square the tail of the snake will enlarge of one unit
+- If the snake hits the border of the maps you lose
+- If the snake's head hits its tail you lose
+- If you press the Q button you quit the game
+- If you press the R button you restart the game

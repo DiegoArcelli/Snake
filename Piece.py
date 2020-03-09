@@ -14,3 +14,6 @@ class Piece(pygame.sprite.Sprite):
     def decreaseCycle(self):
         self.cycle -= 1
         return self.cycle
+
+    def getPosition(self):
+        return self.rect.center
